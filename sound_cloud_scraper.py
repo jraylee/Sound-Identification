@@ -69,11 +69,11 @@ def main(song_filename,url_filename):
 	for line in url_dictionary:
 		url_file.write(line+"\n")
 		for url in url_dictionary[line]:
-			url_file.write(url+"\n")
+			url_file.write(url.lower().replace("https","http")+"\n")
 		url_file.write("\n")
 
 	# Close the files
 	song_file.close()
 	url_file.close()
 
-main('songs.txt','test_out.txt')
+main('songs.txt','cover_urls_lower.txt')
