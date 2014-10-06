@@ -4,16 +4,25 @@
 # Description: program for scraping SoundCloud for urls of cover songs
 
 import urllib2
+import time
 from selenium import webdriver
 
+# Given the song name and artist will return a list of 
 def get_cover_urls(song, artist):
 	query = song + artist + " COVER"
 	search_url = "http://soundcloud.com/search/sounds?q=" + urllib2.quote(query)
 	
 	driver = webdriver.Firefox()
-	driver.implicitly_wait(20) # seconds
-	driver.get(search_url)
+	driver.implicitly_wait(30) # seconds
 
+	# Scroll down page three times
+	driver.get(search_url)
+	time.sleep(5)
+	driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+	time.sleep(5)
+	driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+	# Find all elements with 
 	elements = driver.find_elements_by_class_name("sc-media-content")
 	cover_urls = []
 
@@ -32,6 +41,8 @@ def get_cover_urls(song, artist):
 		if add_to_list:
 			cover_urls.append(link)
 
+	time.sleep(5)
+
 	driver.quit()
 
 	return cover_urls
@@ -46,8 +57,6 @@ def main(song_filename,url_filename):
 	search_urls = []
 	url_dictionary = {}
 
-	i = 0 
-
 	#Read in songs line by line
 	for line in song_file:
 		line = line.strip()
@@ -56,9 +65,6 @@ def main(song_filename,url_filename):
 		print line
 		print url_dictionary[line]
 		print
-		i += 1
-		if i > 3:
-			break
 
 	for line in url_dictionary:
 		url_file.write(line+"\n")
