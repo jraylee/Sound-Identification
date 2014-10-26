@@ -10,7 +10,7 @@
 cd songs
 
 FILE="../cover_urls_lower.txt" 
-SC_DOWNLOADER="/Users/justinelee/Documents/Repos/Sound-Identification/Soundcloud-Downloader-master/soundcloud-downloader.py"
+SC_DOWNLOADER="/Users/justinelee/Projects/Sound-Identification/Soundcloud-Downloader-master/soundcloud-downloader.py"
 
 new_song=true 
 
